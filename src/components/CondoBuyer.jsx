@@ -26,6 +26,10 @@ const CondoBuyer = () => {
     residentialDeedTransfersTitle: 75,
     feeCloser: 300,
     mansionTax: 0,
+    isSponsorSale: false,
+    nycTransferTaxes: 0,
+    nysTransferTaxes: 0,
+    sponsorAttorneyFees: 3000,
   });
 
   useEffect(() => {
@@ -35,19 +39,19 @@ const CondoBuyer = () => {
       ...prevValues,
       mortgageRecordingTax: calculatedRecordingTax,
     }));
-  
+
     const calculatedOriginationFee = values.loanAmount * 0.0075;
     setValues((prevValues) => ({
       ...prevValues,
       mortgageOriginationFee: calculatedOriginationFee,
     }));
-  
+
     const calculatedTitleInsurance = roundToNearest(values.purchasePrice * 0.0045, 1);
     setValues((prevValues) => ({
       ...prevValues,
       titleInsurance: calculatedTitleInsurance,
     }));
-  
+
     let calculatedMansionTax = 0;
     if (values.purchasePrice >= 25000000) {
       calculatedMansionTax = values.purchasePrice * 0.039;
@@ -73,13 +77,40 @@ const CondoBuyer = () => {
     }));
   }, [values.purchasePrice, values.loanAmount]);
 
+  useEffect(() => {
+    if (!values.isSponsorSale) {
+      setValues((prevValues) => ({
+        ...prevValues,
+        nycTransferTaxes: 0,
+        nysTransferTaxes: 0,
+        sponsorAttorneyFees: 0,
+      }));
+    } else {
+      const nycTransferTaxes =
+        values.purchasePrice < 500000
+          ? values.purchasePrice * 0.01
+          : values.purchasePrice * 0.01425;
+
+      const nysTransferTaxes =
+        values.purchasePrice < 3000000
+          ? values.purchasePrice * 0.004
+          : values.purchasePrice * 0.0065;
+
+      setValues((prevValues) => ({
+        ...prevValues,
+        nycTransferTaxes: roundToNearest(nycTransferTaxes, 1),
+        nysTransferTaxes: roundToNearest(nysTransferTaxes, 1),
+        sponsorAttorneyFees: 3000,
+      }));
+    }
+  }, [values.isSponsorSale, values.purchasePrice]);
 
   const handleInputChange = (newValue, changedField) => {
     let parsedValue = parseFloat(newValue);
     if (isNaN(parsedValue)) {
       parsedValue = 0;
     }
-
+  
     switch (changedField) {
       case 'purchasePrice':
         setValues((prevValues) => ({
@@ -125,15 +156,24 @@ const CondoBuyer = () => {
           loanPercentage: 100 - Math.round(((prevValues.purchasePrice - parsedValue) / prevValues.purchasePrice) * 100),
         }));
         break;
-        default:
-          setValues((prevValues) => ({
-            ...prevValues,
-            [changedField]: parsedValue,
-          }));
-          break;
-      }
-    };
-
+      case 'isSponsorSale':
+        setValues((prevValues) => ({
+          ...prevValues,
+          isSponsorSale: newValue,
+          nycTransferTaxes: newValue ? 0 : prevValues.nycTransferTaxes,
+          nysTransferTaxes: newValue ? 0 : prevValues.nysTransferTaxes,
+          sponsorAttorneyFees: newValue ? 0 : prevValues.sponsorAttorneyFees,
+        }));
+        break;
+      default:
+        setValues((prevValues) => ({
+          ...prevValues,
+          [changedField]: parsedValue,
+        }));
+        break;
+    }
+  };
+  
   const calculateTotalClosingCosts = () => {
     const {
       attorneyFees,
@@ -148,8 +188,11 @@ const CondoBuyer = () => {
       residentialDeedTransfersTitle,
       feeCloser,
       mansionTax,
+      nycTransferTaxes,
+      nysTransferTaxes,
+      sponsorAttorneyFees,
     } = values;
-  
+
     const total =
       attorneyFees +
       bankApplication +
@@ -162,12 +205,13 @@ const CondoBuyer = () => {
       municipalSearches +
       residentialDeedTransfersTitle +
       feeCloser +
-      parseFloat(mansionTax);
-  
-      return total.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
-    };
-  
-  
+      parseFloat(mansionTax) +
+      parseFloat(nycTransferTaxes) +
+      parseFloat(nysTransferTaxes) +
+      sponsorAttorneyFees;
+
+    return total.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  };
 
   return (
     <div>
@@ -314,6 +358,43 @@ const CondoBuyer = () => {
           value={values.mansionTax}
           onValueChange={(value) => handleInputChange(value, 'mansionTax')}
         />
+      </div>
+      <div>
+        <h3>New Development / Sponsor Sale</h3>
+        <div>
+          <input
+            type="checkbox"
+            checked={values.isSponsorSale}
+            onChange={(e) => handleInputChange(e.target.checked, 'isSponsorSale')}
+          />
+          <label>Is Sponsor Sale</label>
+        </div>
+        <fieldset disabled={!values.isSponsorSale}>
+          <div>
+            <label>NYC Transfer Taxes:</label>
+            <CurrencyInput
+              intlConfig={{ locale: 'en-US', currency: 'USD' }}
+              value={values.isSponsorSale ? values.nycTransferTaxes : 0}
+              onValueChange={(value) => handleInputChange(value, 'nycTransferTaxes')}
+            />
+          </div>
+          <div>
+            <label>NYS Transfer Taxes:</label>
+            <CurrencyInput
+              intlConfig={{ locale: 'en-US', currency: 'USD' }}
+              value={values.isSponsorSale ? values.nysTransferTaxes : 0}
+              onValueChange={(value) => handleInputChange(value, 'nysTransferTaxes')}
+            />
+          </div>
+          <div>
+            <label>Sponsor Attorney Fees:</label>
+            <CurrencyInput
+              intlConfig={{ locale: 'en-US', currency: 'USD' }}
+              value={values.isSponsorSale ? values.sponsorAttorneyFees : 0}
+              onValueChange={(value) => handleInputChange(value, 'sponsorAttorneyFees')}
+            />
+          </div>
+        </fieldset>
       </div>
       <h1>Total Closing Costs: {calculateTotalClosingCosts().toLocaleString()}</h1>
     </div>
