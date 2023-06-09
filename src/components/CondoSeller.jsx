@@ -2,9 +2,8 @@
 
 const CondoSeller = () => {
   return (
-    <h1>Condo Seller</h1>
-    
-  );
-};
+    <div>CondoSeller</div>
+  )
+}
 
-export default CondoSeller;
+export default CondoSeller
