@@ -1,23 +1,24 @@
 import { useState, useEffect } from 'react';
 import CurrencyInput from 'react-currency-input-field';
 
+// Function to round to the nearest dollar
 const roundToNearest = (value, nearest) => {
   return Math.round(value / nearest) * nearest;
 };
 
 const CondoBuyer = () => {
   const [values, setValues] = useState({
+    // Default Values
     purchasePrice: 1500000,
     downPaymentPercentage: 20,
     downPaymentAmount: 300000,
     loanPercentage: 80,
     loanAmount: 1200000,
     attorneyFees: 3000,
-    bankApplication: 500,
-    bankAttorney: 1250,
-    appraisal: 500,
+    bankAttorney: 1400,
+    appraisal: 800,
     mortgageRecordingTax: 0,
-    mortgageOriginationFee: 0,
+    mortgageOriginationFee: 1500,
     applicationFees: 750,
     moveInFees: 500,
     titleInsurance: roundToNearest(1500000 * 0.0045, 1),
@@ -34,19 +35,18 @@ const CondoBuyer = () => {
 
   useEffect(() => {
     const calculatedRecordingTax =
-      values.loanAmount < 500000 ? values.loanAmount * 0.018 : values.loanAmount * 0.01925;
+      values.loanAmount < 500000
+        ? values.loanAmount * 0.018
+        : values.loanAmount * 0.01925;
     setValues((prevValues) => ({
       ...prevValues,
       mortgageRecordingTax: calculatedRecordingTax,
     }));
 
-    const calculatedOriginationFee = values.loanAmount * 0.0075;
-    setValues((prevValues) => ({
-      ...prevValues,
-      mortgageOriginationFee: calculatedOriginationFee,
-    }));
-
-    const calculatedTitleInsurance = roundToNearest(values.purchasePrice * 0.0045, 1);
+    const calculatedTitleInsurance = roundToNearest(
+      values.purchasePrice * 0.0045,
+      1
+    );
     setValues((prevValues) => ({
       ...prevValues,
       titleInsurance: calculatedTitleInsurance,
@@ -70,7 +70,7 @@ const CondoBuyer = () => {
     } else if (values.purchasePrice >= 1000000) {
       calculatedMansionTax = values.purchasePrice * 0.01;
     }
-    calculatedMansionTax = roundToNearest(calculatedMansionTax, 1); // Round to nearest dollar
+    calculatedMansionTax = roundToNearest(calculatedMansionTax, 1);
     setValues((prevValues) => ({
       ...prevValues,
       mansionTax: calculatedMansionTax,
@@ -110,22 +110,31 @@ const CondoBuyer = () => {
     if (isNaN(parsedValue)) {
       parsedValue = 0;
     }
-  
+
     switch (changedField) {
       case 'purchasePrice':
         setValues((prevValues) => ({
           ...prevValues,
           purchasePrice: parsedValue,
-          downPaymentAmount: Math.round((parsedValue * prevValues.downPaymentPercentage) / 100),
-          loanAmount: Math.round(parsedValue - ((parsedValue * prevValues.downPaymentPercentage) / 100)),
+          downPaymentAmount: Math.round(
+            (parsedValue * prevValues.downPaymentPercentage) / 100
+          ),
+          loanAmount: Math.round(
+            parsedValue - (parsedValue * prevValues.downPaymentPercentage) / 100
+          ),
         }));
         break;
       case 'downPaymentPercentage':
         setValues((prevValues) => ({
           ...prevValues,
           downPaymentPercentage: parsedValue,
-          downPaymentAmount: Math.round((prevValues.purchasePrice * parsedValue) / 100),
-          loanAmount: Math.round(prevValues.purchasePrice - (prevValues.purchasePrice * parsedValue) / 100),
+          downPaymentAmount: Math.round(
+            (prevValues.purchasePrice * parsedValue) / 100
+          ),
+          loanAmount: Math.round(
+            prevValues.purchasePrice -
+              (prevValues.purchasePrice * parsedValue) / 100
+          ),
           loanPercentage: 100 - parsedValue,
         }));
         break;
@@ -133,17 +142,25 @@ const CondoBuyer = () => {
         setValues((prevValues) => ({
           ...prevValues,
           downPaymentAmount: parsedValue,
-          downPaymentPercentage: Math.round((parsedValue / prevValues.purchasePrice) * 100),
+          downPaymentPercentage: Math.round(
+            (parsedValue / prevValues.purchasePrice) * 100
+          ),
           loanAmount: Math.round(prevValues.purchasePrice - parsedValue),
-          loanPercentage: 100 - Math.round((parsedValue / prevValues.purchasePrice) * 100),
+          loanPercentage:
+            100 - Math.round((parsedValue / prevValues.purchasePrice) * 100),
         }));
         break;
       case 'loanPercentage':
         setValues((prevValues) => ({
           ...prevValues,
           loanPercentage: parsedValue,
-          loanAmount: Math.round((prevValues.purchasePrice * parsedValue) / 100),
-          downPaymentAmount: Math.round(prevValues.purchasePrice - (prevValues.purchasePrice * parsedValue) / 100),
+          loanAmount: Math.round(
+            (prevValues.purchasePrice * parsedValue) / 100
+          ),
+          downPaymentAmount: Math.round(
+            prevValues.purchasePrice -
+              (prevValues.purchasePrice * parsedValue) / 100
+          ),
           downPaymentPercentage: 100 - parsedValue,
         }));
         break;
@@ -152,8 +169,18 @@ const CondoBuyer = () => {
           ...prevValues,
           loanAmount: parsedValue,
           downPaymentAmount: Math.round(prevValues.purchasePrice - parsedValue),
-          downPaymentPercentage: Math.round(((prevValues.purchasePrice - parsedValue) / prevValues.purchasePrice) * 100),
-          loanPercentage: 100 - Math.round(((prevValues.purchasePrice - parsedValue) / prevValues.purchasePrice) * 100),
+          downPaymentPercentage: Math.round(
+            ((prevValues.purchasePrice - parsedValue) /
+              prevValues.purchasePrice) *
+              100
+          ),
+          loanPercentage:
+            100 -
+            Math.round(
+              ((prevValues.purchasePrice - parsedValue) /
+                prevValues.purchasePrice) *
+                100
+            ),
         }));
         break;
       case 'isSponsorSale':
@@ -173,13 +200,15 @@ const CondoBuyer = () => {
         break;
     }
   };
-  
+
+  // Function to calculate total closing costs
   const calculateTotalClosingCosts = () => {
     const {
       attorneyFees,
-      bankApplication,
       bankAttorney,
       appraisal,
+      mortgageRecordingTax,
+      mortgageOriginationFee,
       applicationFees,
       moveInFees,
       titleInsurance,
@@ -195,9 +224,10 @@ const CondoBuyer = () => {
 
     const total =
       attorneyFees +
-      bankApplication +
       bankAttorney +
       appraisal +
+      parseFloat(mortgageRecordingTax) +
+      mortgageOriginationFee +
       applicationFees +
       moveInFees +
       parseFloat(titleInsurance) +
@@ -210,9 +240,15 @@ const CondoBuyer = () => {
       parseFloat(nysTransferTaxes) +
       sponsorAttorneyFees;
 
-    return total.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    return total.toLocaleString(undefined, {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
   };
 
+  // DISPLAY --------------------------------------------------|
   return (
     <div>
       <h2>Closing Costs Calculator</h2>
@@ -226,12 +262,17 @@ const CondoBuyer = () => {
         />
       </div>
       <div>
+        <h3>Loan</h3>
+      </div>
+      <div>
         <label>Down Payment Percentage: </label>
         <CurrencyInput
           suffix="%"
           decimalsLimit={0}
           value={values.downPaymentPercentage}
-          onValueChange={(value) => handleInputChange(value, 'downPaymentPercentage')}
+          onValueChange={(value) =>
+            handleInputChange(value, 'downPaymentPercentage')
+          }
         />
       </div>
       <div>
@@ -239,7 +280,9 @@ const CondoBuyer = () => {
         <CurrencyInput
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.downPaymentAmount}
-          onValueChange={(value) => handleInputChange(value, 'downPaymentAmount')}
+          onValueChange={(value) =>
+            handleInputChange(value, 'downPaymentAmount')
+          }
         />
       </div>
       <div>
@@ -270,14 +313,6 @@ const CondoBuyer = () => {
       </div>
       <h3>Bank</h3>
       <div>
-        <label>Bank Application: </label>
-        <CurrencyInput
-          intlConfig={{ locale: 'en-US', currency: 'USD' }}
-          value={values.bankApplication}
-          onValueChange={(value) => handleInputChange(value, 'bankApplication')}
-        />
-      </div>
-      <div>
         <label>Bank Attorney: </label>
         <CurrencyInput
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
@@ -291,6 +326,26 @@ const CondoBuyer = () => {
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.appraisal}
           onValueChange={(value) => handleInputChange(value, 'appraisal')}
+        />
+      </div>
+      <div>
+        <label>Mortgage Recording Tax: </label>
+        <CurrencyInput
+          intlConfig={{ locale: 'en-US', currency: 'USD' }}
+          value={values.mortgageRecordingTax}
+          onValueChange={(value) =>
+            handleInputChange(value, 'mortgageRecordingTax')
+          }
+        />
+      </div>
+      <div>
+        <label>Mortgage Origination Fee: </label>
+        <CurrencyInput
+          intlConfig={{ locale: 'en-US', currency: 'USD' }}
+          value={values.mortgageOriginationFee}
+          onValueChange={(value) =>
+            handleInputChange(value, 'mortgageOriginationFee')
+          }
         />
       </div>
       <h3>Building</h3>
@@ -332,7 +387,9 @@ const CondoBuyer = () => {
         <CurrencyInput
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.municipalSearches}
-          onValueChange={(value) => handleInputChange(value, 'municipalSearches')}
+          onValueChange={(value) =>
+            handleInputChange(value, 'municipalSearches')
+          }
         />
       </div>
       <div>
@@ -340,7 +397,9 @@ const CondoBuyer = () => {
         <CurrencyInput
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.residentialDeedTransfersTitle}
-          onValueChange={(value) => handleInputChange(value, 'residentialDeedTransfersTitle')}
+          onValueChange={(value) =>
+            handleInputChange(value, 'residentialDeedTransfersTitle')
+          }
         />
       </div>
       <div>
@@ -365,9 +424,11 @@ const CondoBuyer = () => {
           <input
             type="checkbox"
             checked={values.isSponsorSale}
-            onChange={(e) => handleInputChange(e.target.checked, 'isSponsorSale')}
+            onChange={(e) =>
+              handleInputChange(e.target.checked, 'isSponsorSale')
+            }
           />
-          <label>Is Sponsor Sale</label>
+          <label>Sponsor Sale</label>
         </div>
         <fieldset disabled={!values.isSponsorSale}>
           <div>
@@ -375,7 +436,9 @@ const CondoBuyer = () => {
             <CurrencyInput
               intlConfig={{ locale: 'en-US', currency: 'USD' }}
               value={values.isSponsorSale ? values.nycTransferTaxes : 0}
-              onValueChange={(value) => handleInputChange(value, 'nycTransferTaxes')}
+              onValueChange={(value) =>
+                handleInputChange(value, 'nycTransferTaxes')
+              }
             />
           </div>
           <div>
@@ -383,7 +446,9 @@ const CondoBuyer = () => {
             <CurrencyInput
               intlConfig={{ locale: 'en-US', currency: 'USD' }}
               value={values.isSponsorSale ? values.nysTransferTaxes : 0}
-              onValueChange={(value) => handleInputChange(value, 'nysTransferTaxes')}
+              onValueChange={(value) =>
+                handleInputChange(value, 'nysTransferTaxes')
+              }
             />
           </div>
           <div>
@@ -391,12 +456,16 @@ const CondoBuyer = () => {
             <CurrencyInput
               intlConfig={{ locale: 'en-US', currency: 'USD' }}
               value={values.isSponsorSale ? values.sponsorAttorneyFees : 0}
-              onValueChange={(value) => handleInputChange(value, 'sponsorAttorneyFees')}
+              onValueChange={(value) =>
+                handleInputChange(value, 'sponsorAttorneyFees')
+              }
             />
           </div>
         </fieldset>
       </div>
-      <h1>Total Closing Costs: {calculateTotalClosingCosts().toLocaleString()}</h1>
+      <h2>
+        Total Closing Costs: {calculateTotalClosingCosts().toLocaleString()}
+      </h2>
     </div>
   );
 };
