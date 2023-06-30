@@ -6,7 +6,7 @@ const roundToNearest = (value, nearest) => {
   return Math.round(value / nearest) * nearest;
 };
 
-const CondoBuyer = () => {
+const TownhouseBuyer = () => {
   const [values, setValues] = useState({
     // Default Values
     purchasePrice: 1500000,
@@ -447,4 +447,4 @@ const CondoBuyer = () => {
   );
 };
 
-export default CondoBuyer;
+export default TownhouseBuyer;
