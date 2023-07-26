@@ -9,7 +9,7 @@ It is still a work in progress and closing costs cannot be calculated accurately
 I intend to add detailed descriptions to each of the input fields and style it to make it look nicer. 
 
 ## Live Demo
-Check out the live demo of the Real Estate Listings App [here](https://).
+Check out the live demo of the Real Estate Listings App [here](https://cccalc.vercel.app/).
 
 ## Table of Contents
 - [Technologies Used](#technologies-used)
