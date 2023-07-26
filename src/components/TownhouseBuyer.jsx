@@ -261,7 +261,7 @@ const TownhouseBuyer = () => {
       <div>
         <label>Down Payment Percentage: </label>
         <CurrencyInput
-          suffix="%"
+          suffix='%'
           decimalsLimit={0}
           value={values.downPaymentPercentage}
           onValueChange={(value) =>
@@ -282,7 +282,7 @@ const TownhouseBuyer = () => {
       <div>
         <label>Loan Percentage: </label>
         <CurrencyInput
-          suffix="%"
+          suffix='%'
           decimalsLimit={0}
           value={values.loanPercentage}
           onValueChange={(value) => handleInputChange(value, 'loanPercentage')}
@@ -399,7 +399,7 @@ const TownhouseBuyer = () => {
         <h3>New Development / Sponsor Sale</h3>
         <div>
           <input
-            type="checkbox"
+            type='checkbox'
             checked={values.isSponsorSale}
             onChange={(e) =>
               handleInputChange(e.target.checked, 'isSponsorSale')
@@ -407,38 +407,36 @@ const TownhouseBuyer = () => {
           />
           <label>Sponsor Sale</label>
         </div>
-        <fieldset disabled={!values.isSponsorSale}>
-          <div>
-            <label>NYC Transfer Taxes:</label>
-            <CurrencyInput
-              intlConfig={{ locale: 'en-US', currency: 'USD' }}
-              value={values.isSponsorSale ? values.nycTransferTaxes : 0}
-              onValueChange={(value) =>
-                handleInputChange(value, 'nycTransferTaxes')
-              }
-            />
-          </div>
-          <div>
-            <label>NYS Transfer Taxes:</label>
-            <CurrencyInput
-              intlConfig={{ locale: 'en-US', currency: 'USD' }}
-              value={values.isSponsorSale ? values.nysTransferTaxes : 0}
-              onValueChange={(value) =>
-                handleInputChange(value, 'nysTransferTaxes')
-              }
-            />
-          </div>
-          <div>
-            <label>Sponsor Attorney Fees:</label>
-            <CurrencyInput
-              intlConfig={{ locale: 'en-US', currency: 'USD' }}
-              value={values.isSponsorSale ? values.sponsorAttorneyFees : 0}
-              onValueChange={(value) =>
-                handleInputChange(value, 'sponsorAttorneyFees')
-              }
-            />
-          </div>
-        </fieldset>
+        <div>
+          <label>NYC Transfer Taxes:</label>
+          <CurrencyInput
+            intlConfig={{ locale: 'en-US', currency: 'USD' }}
+            value={values.isSponsorSale ? values.nycTransferTaxes : 0}
+            onValueChange={(value) =>
+              handleInputChange(value, 'nycTransferTaxes')
+            }
+          />
+        </div>
+        <div>
+          <label>NYS Transfer Taxes:</label>
+          <CurrencyInput
+            intlConfig={{ locale: 'en-US', currency: 'USD' }}
+            value={values.isSponsorSale ? values.nysTransferTaxes : 0}
+            onValueChange={(value) =>
+              handleInputChange(value, 'nysTransferTaxes')
+            }
+          />
+        </div>
+        <div>
+          <label>Sponsor Attorney Fees:</label>
+          <CurrencyInput
+            intlConfig={{ locale: 'en-US', currency: 'USD' }}
+            value={values.isSponsorSale ? values.sponsorAttorneyFees : 0}
+            onValueChange={(value) =>
+              handleInputChange(value, 'sponsorAttorneyFees')
+            }
+          />
+        </div>
       </div>
       <h2>
         Total Closing Costs: {calculateTotalClosingCosts().toLocaleString()}

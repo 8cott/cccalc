@@ -430,7 +430,6 @@ const CondoBuyer = () => {
           />
           <label>Sponsor Sale</label>
         </div>
-        <fieldset disabled={!values.isSponsorSale}>
           <div>
             <label>NYC Transfer Taxes:</label>
             <CurrencyInput
@@ -461,7 +460,6 @@ const CondoBuyer = () => {
               }
             />
           </div>
-        </fieldset>
       </div>
       <h2>
         Total Closing Costs: {calculateTotalClosingCosts().toLocaleString()}

@@ -5,6 +5,7 @@ import CoOpBuyer from './components/CoOpBuyer';
 import CoOpSeller from './components/CoOpSeller';
 import TownhouseBuyer from './components/TownhouseBuyer';
 import TownhouseSeller from './components/TownhouseSeller';
+import Footer from './components/Footer';
 import './App.css'
 
 const App = () => {
@@ -47,9 +48,27 @@ const App = () => {
     }
   };
 
+  const containerStyles = {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    paddingBottom: '60px', // Provide some padding at the bottom for the footer
+  };
+
+  const contentStyles = {
+    flex: 1,
+    minHeight: 'calc(100vh - 120px)', // Adjust this value based on your design to leave enough space for the footer
+  };
+
+  const footerStyles = {
+    padding: '20px',
+    textAlign: 'center',
+    marginTop: '20px',
+  };
+  
   return (
-    <div>
-      <h1>Closing Costs Calculator</h1>
+    <div style={containerStyles}>
+      <h1>NYC Closing Costs Calculator</h1>
       <div>
         <label>
           <input
@@ -132,7 +151,10 @@ const App = () => {
           </label>
         </div>
       )}
-      {renderContent()}
+      <div style={contentStyles}>
+        {renderContent()}
+      </div>
+      <Footer style={footerStyles} />
     </div>
   );
 };
