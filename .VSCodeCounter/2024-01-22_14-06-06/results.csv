@@ -1,0 +1,20 @@
+"filename", "language", "JavaScript JSX", "PostCSS", "JavaScript", "JSON", "Markdown", "HTML", "comment", "blank", "total"
+"/Users/scottrubin/Coding/projects/cccalc-v3/.eslintrc.cjs", "JavaScript", 0, 0, 15, 0, 0, 0, 0, 1, 16
+"/Users/scottrubin/Coding/projects/cccalc-v3/index.html", "HTML", 0, 0, 0, 0, 0, 13, 0, 1, 14
+"/Users/scottrubin/Coding/projects/cccalc-v3/package-lock.json", "JSON", 0, 0, 0, 3015, 0, 0, 0, 1, 3016
+"/Users/scottrubin/Coding/projects/cccalc-v3/package.json", "JSON", 0, 0, 0, 29, 0, 0, 0, 1, 30
+"/Users/scottrubin/Coding/projects/cccalc-v3/readme.md", "Markdown", 0, 0, 0, 0, 33, 0, 0, 13, 46
+"/Users/scottrubin/Coding/projects/cccalc-v3/src/App.css", "PostCSS", 0, 37, 0, 0, 0, 0, 0, 6, 43
+"/Users/scottrubin/Coding/projects/cccalc-v3/src/App.jsx", "JavaScript JSX", 153, 0, 0, 0, 0, 0, 0, 9, 162
+"/Users/scottrubin/Coding/projects/cccalc-v3/src/components/CoOpBuyer.jsx", "JavaScript JSX", 399, 0, 0, 0, 0, 0, 4, 15, 418
+"/Users/scottrubin/Coding/projects/cccalc-v3/src/components/CoOpSeller.jsx", "JavaScript JSX", 271, 0, 0, 0, 0, 0, 21, 13, 305
+"/Users/scottrubin/Coding/projects/cccalc-v3/src/components/CondoBuyer.jsx", "JavaScript JSX", 452, 0, 0, 0, 0, 0, 4, 16, 472
+"/Users/scottrubin/Coding/projects/cccalc-v3/src/components/CondoSeller.jsx", "JavaScript JSX", 226, 0, 0, 0, 0, 0, 21, 13, 260
+"/Users/scottrubin/Coding/projects/cccalc-v3/src/components/Footer.jsx", "JavaScript JSX", 15, 0, 0, 0, 0, 0, 0, 4, 19
+"/Users/scottrubin/Coding/projects/cccalc-v3/src/components/TownhouseBuyer.jsx", "JavaScript JSX", 429, 0, 0, 0, 0, 0, 4, 16, 449
+"/Users/scottrubin/Coding/projects/cccalc-v3/src/components/TownhouseSeller.jsx", "JavaScript JSX", 201, 0, 0, 0, 0, 0, 18, 13, 232
+"/Users/scottrubin/Coding/projects/cccalc-v3/src/index.css", "PostCSS", 0, 80, 0, 0, 0, 0, 0, 13, 93
+"/Users/scottrubin/Coding/projects/cccalc-v3/src/main.jsx", "JavaScript JSX", 9, 0, 0, 0, 0, 0, 0, 2, 11
+"/Users/scottrubin/Coding/projects/cccalc-v3/vercel.json", "JSON", 0, 0, 0, 5, 0, 0, 0, 1, 6
+"/Users/scottrubin/Coding/projects/cccalc-v3/vite.config.js", "JavaScript", 0, 0, 5, 0, 0, 0, 1, 2, 8
+"Total", "-", 2155, 117, 20, 3049, 33, 13, 73, 140, 5600

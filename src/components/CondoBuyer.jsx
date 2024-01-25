@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import CurrencyInput from 'react-currency-input-field';
+import { Tooltip } from 'react-tooltip';
 
 // Function to round to the nearest dollar
 const roundToNearest = (value, nearest) => {
@@ -253,8 +254,9 @@ const CondoBuyer = () => {
     <div>
       <h2>Closing Costs Calculator</h2>
       <div>
-        <label>Purchase Price: </label>
+        <label className='label'>Purchase Price: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           decimalsLimit={0}
           value={values.purchasePrice}
@@ -262,12 +264,13 @@ const CondoBuyer = () => {
         />
       </div>
       <div>
-        <h3>Loan</h3>
+        <h3 className='category'>Loan</h3>
       </div>
       <div>
-        <label>Down Payment Percentage: </label>
+        <label className='label'>Down Payment Percentage: </label>
         <CurrencyInput
-          suffix="%"
+          className='input'
+          suffix='%'
           decimalsLimit={0}
           value={values.downPaymentPercentage}
           onValueChange={(value) =>
@@ -276,8 +279,9 @@ const CondoBuyer = () => {
         />
       </div>
       <div>
-        <label>Down Payment Amount: </label>
+        <label className='label'>Down Payment Amount: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.downPaymentAmount}
           onValueChange={(value) =>
@@ -286,51 +290,57 @@ const CondoBuyer = () => {
         />
       </div>
       <div>
-        <label>Loan Percentage: </label>
+        <label className='label'>Loan Percentage: </label>
         <CurrencyInput
-          suffix="%"
+          className='input'
+          suffix='%'
           decimalsLimit={0}
           value={values.loanPercentage}
           onValueChange={(value) => handleInputChange(value, 'loanPercentage')}
         />
       </div>
       <div>
-        <label>Loan Amount: </label>
+        <label className='label'>Loan Amount: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.loanAmount}
           onValueChange={(value) => handleInputChange(value, 'loanAmount')}
         />
       </div>
-      <h3>Attorney</h3>
+      <h3 className='category'>Attorney</h3>
       <div>
-        <label>Attorney Fees: </label>
+        <label className='label'>Attorney Fees: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.attorneyFees}
           onValueChange={(value) => handleInputChange(value, 'attorneyFees')}
         />
       </div>
-      <h3>Bank</h3>
+      <h3 className='category'>Bank</h3>
       <div>
-        <label>Bank Attorney: </label>
+        <label className='label'>Bank Attorney: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.bankAttorney}
           onValueChange={(value) => handleInputChange(value, 'bankAttorney')}
         />
       </div>
       <div>
-        <label>Appraisal: </label>
+        <label className='label'>Appraisal: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.appraisal}
           onValueChange={(value) => handleInputChange(value, 'appraisal')}
         />
       </div>
       <div>
-        <label>Mortgage Recording Tax: </label>
+        <label className='label'>Mortgage Recording Tax: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.mortgageRecordingTax}
           onValueChange={(value) =>
@@ -339,8 +349,9 @@ const CondoBuyer = () => {
         />
       </div>
       <div>
-        <label>Mortgage Origination Fee: </label>
+        <label className='label'>Mortgage Origination Fee: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.mortgageOriginationFee}
           onValueChange={(value) =>
@@ -348,43 +359,48 @@ const CondoBuyer = () => {
           }
         />
       </div>
-      <h3>Building</h3>
+      <h3 className='category'>Building</h3>
       <div>
-        <label>Application Fees/Credit Check: </label>
+        <label className='label'>Application Fees/Credit Check: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.applicationFees}
           onValueChange={(value) => handleInputChange(value, 'applicationFees')}
         />
       </div>
       <div>
-        <label>Move-in Fees/Deposit: </label>
+        <label className='label'>Move-in Fees/Deposit: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.moveInFees}
           onValueChange={(value) => handleInputChange(value, 'moveInFees')}
         />
       </div>
-      <h3>Government & Title</h3>
+      <h3 className='category'>Government & Title</h3>
       <div>
-        <label>Title Insurance: </label>
+        <label className='label'>Title Insurance: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.titleInsurance}
           onValueChange={(value) => handleInputChange(value, 'titleInsurance')}
         />
       </div>
       <div>
-        <label>Recording Fees: </label>
+        <label className='label'>Recording Fees: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.recordingFees}
           onValueChange={(value) => handleInputChange(value, 'recordingFees')}
         />
       </div>
       <div>
-        <label>Municipal Searches: </label>
+        <label className='label'>Municipal Searches: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.municipalSearches}
           onValueChange={(value) =>
@@ -393,8 +409,9 @@ const CondoBuyer = () => {
         />
       </div>
       <div>
-        <label>Residential Deed Transfers Title: </label>
+        <label className='label'>Residential Deed Transfers Title: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.residentialDeedTransfersTitle}
           onValueChange={(value) =>
@@ -403,67 +420,74 @@ const CondoBuyer = () => {
         />
       </div>
       <div>
-        <label>Fee Closer: </label>
+        <label className='label'>Fee Closer: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.feeCloser}
           onValueChange={(value) => handleInputChange(value, 'feeCloser')}
         />
       </div>
       <div>
-        <label>Mansion Tax: </label>
+        <label className='label'>Mansion Tax: </label>
         <CurrencyInput
+          className='input'
           intlConfig={{ locale: 'en-US', currency: 'USD' }}
           value={values.mansionTax}
           onValueChange={(value) => handleInputChange(value, 'mansionTax')}
         />
       </div>
       <div>
-        <h3>New Development / Sponsor Sale</h3>
+        <h3 className='category'>New Development / Sponsor Sale</h3>
         <div>
           <input
-            type="checkbox"
+            type='checkbox'
             checked={values.isSponsorSale}
             onChange={(e) =>
               handleInputChange(e.target.checked, 'isSponsorSale')
             }
           />
-          <label>Sponsor Sale</label>
+          <label className='label'>Sponsor Sale</label>
         </div>
-          <div>
-            <label>NYC Transfer Taxes:</label>
-            <CurrencyInput
-              intlConfig={{ locale: 'en-US', currency: 'USD' }}
-              value={values.isSponsorSale ? values.nycTransferTaxes : 0}
-              onValueChange={(value) =>
-                handleInputChange(value, 'nycTransferTaxes')
-              }
-            />
-          </div>
-          <div>
-            <label>NYS Transfer Taxes:</label>
-            <CurrencyInput
-              intlConfig={{ locale: 'en-US', currency: 'USD' }}
-              value={values.isSponsorSale ? values.nysTransferTaxes : 0}
-              onValueChange={(value) =>
-                handleInputChange(value, 'nysTransferTaxes')
-              }
-            />
-          </div>
-          <div>
-            <label>Sponsor Attorney Fees:</label>
-            <CurrencyInput
-              intlConfig={{ locale: 'en-US', currency: 'USD' }}
-              value={values.isSponsorSale ? values.sponsorAttorneyFees : 0}
-              onValueChange={(value) =>
-                handleInputChange(value, 'sponsorAttorneyFees')
-              }
-            />
-          </div>
+        <div>
+          <label className='label'>NYC Transfer Taxes:</label>
+          <CurrencyInput
+            className='input'
+            intlConfig={{ locale: 'en-US', currency: 'USD' }}
+            value={values.isSponsorSale ? values.nycTransferTaxes : 0}
+            onValueChange={(value) =>
+              handleInputChange(value, 'nycTransferTaxes')
+            }
+          />
+        </div>
+        <div>
+          <label className='label'>NYS Transfer Taxes:</label>
+          <CurrencyInput
+            className='input'
+            intlConfig={{ locale: 'en-US', currency: 'USD' }}
+            value={values.isSponsorSale ? values.nysTransferTaxes : 0}
+            onValueChange={(value) =>
+              handleInputChange(value, 'nysTransferTaxes')
+            }
+          />
+        </div>
+        <div>
+          <label className='label'>Sponsor Attorney Fees:</label>
+          <CurrencyInput
+            className='input'
+            intlConfig={{ locale: 'en-US', currency: 'USD' }}
+            value={values.isSponsorSale ? values.sponsorAttorneyFees : 0}
+            onValueChange={(value) =>
+              handleInputChange(value, 'sponsorAttorneyFees')
+            }
+          />
+        </div>
       </div>
       <h2>
         Total Closing Costs: {calculateTotalClosingCosts().toLocaleString()}
       </h2>
+      <a id='my-anchor-element'>i</a>
+      <Tooltip anchorSelect='#my-anchor-element' content='This is a mortgage closing costs calculator' />
     </div>
   );
 };
